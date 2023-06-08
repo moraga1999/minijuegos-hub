@@ -1,46 +1,31 @@
 // comando python para ejecutar web server: python3 -m http.server
+
+function preload ()
+{
+    this.load.image('tiles','assets/tileset.png')
+    this.load.tilemapTiledJSON('map','assets/map.json')
+}
+
+function create ()
+{
+    const map = this.make.tilemap({ key: 'map' });
+    // The first parameter is the name of the tileset in Tiled and the second parameter is the key
+    // of the tileset image used when loading the file in preload.
+    const tiles = map.addTilesetImage('tileset', 'tiles');
+    // You can load a layer from the map using the layer name from Tiled, or by using the layer
+    // index (0 in this case).
+    const layer = map.createLayer('background', tiles, 0, 0);
+}
+
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 200 }
-        }
-    },
+    width: 16*48,
+    height: 14*48,
+    pixelArt: true,
     scene: {
         preload: preload,
         create: create
     }
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('sky', 'assets/space3.png');
-    this.load.image('logo', 'assets/phaser3-logo.png');
-    this.load.image('red', 'assets/red.png');
-}
-
-function create ()
-{
-    this.add.image(400, 300, 'sky');
-
-    var particles = this.add.particles('red');
-
-    var emitter = particles.createEmitter({
-        speed: 100,
-        scale: { start: 1, end: 0 },
-        blendMode: 'ADD'
-    });
-
-    var logo = this.physics.add.image(400, 100, 'logo');
-
-    logo.setVelocity(100, 200);
-    logo.setBounce(1, 1);
-    logo.setCollideWorldBounds(true);
-
-    emitter.startFollow(logo);
-}
+const game = new Phaser.Game(config);
