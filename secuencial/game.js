@@ -1,32 +1,73 @@
-// comando python para ejecutar web server: python3 -m http.server
+//python3 -m http.server
+var map, tiles, background, wall, platforms, player, cursors;
 
-function preload ()
-{
-    this.load.image('tiles','assets/tileset.png')
-    this.load.tilemapTiledJSON('map','map.json')
-}
+var sceneConfig = {
+    key: 'main',
+    preload: preload,
+    create: create,
+    update: update
+};
 
-function create ()
-{
-    const map = this.make.tilemap({ key: 'map', tileWidth: 48, tileHeight: 48 });
-    // The first parameter is the name of the tileset in Tiled and the second parameter is the key
-    // of the tileset image used when loading the file in preload.
-    const tiles = map.addTilesetImage('tileset', 'tiles');
-    // You can load a layer from the map using the layer name from Tiled, or by using the layer
-    // index (0 in this case).
-    const background = map.createLayer('background', tiles, 0, 0);
-    const platforms = map.createLayer('platforms', tiles, 0, 0);
-}
-
-var config = {
+var gameConfig = {
     type: Phaser.AUTO,
     width: 16*48,
     height: 14*48,
     pixelArt: true,
-    scene: {
-        preload: preload,
-        create: create
-    }
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    },
+    scene: sceneConfig
 };
 
-const game = new Phaser.Game(config);
+var game = new Phaser.Game(gameConfig);
+
+function preload() {
+    this.load.image('tiles','assets/tileset.png');
+    this.load.tilemapTiledJSON('map','map.json');
+    this.load.image('player', 'assets/pj.png');
+}
+
+function create() {
+    map = this.make.tilemap({ key: 'map', tileWidth: 48, tileHeight: 48 });
+    tiles = map.addTilesetImage('tileset', 'tiles');
+    background = map.createLayer('background', tiles, 0, 0);
+    wall = map.createLayer('wall', tiles, 0 ,0);
+    platforms = map.createLayer('platforms', tiles, 0, 0);
+
+    player = this.physics.add.sprite(400, 300, 'player')
+    player.setBounce(0.2);
+    player.setCollideWorldBounds(true);
+    player.setScale(2,2);
+    platforms.setCollisionByExclusion([-1]);
+    this.physics.add.collider(player, platforms);
+    cursors = this.input.keyboard.createCursorKeys();
+}
+
+function update() {
+    this.physics.world.collide(player, platforms);
+
+    const { left, right, up } = cursors;
+    
+    if (left.isDown){
+        player.setFlipX(true)
+        player.setVelocityX(-100);
+        //this.anims.play('walk', true); 
+    }
+    else if (right.isDown){
+        player.setFlipX(false)
+        player.setVelocityX(100); 
+        //this.anims.play('walk', true);     
+    }
+    else{
+        player.setVelocityX(0);
+      //this.anims.stop();          
+    }
+
+    if (up.isDown && player.body.onFloor()){
+        player.setVelocityY(-330);
+    }
+}
