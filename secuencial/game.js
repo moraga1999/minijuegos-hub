@@ -1,7 +1,8 @@
 //python3 -m http.server
 var map, tiles, background, wall, platforms, player, cursors, btn1;
 var btn1, btn2, btn3, btn4, btn5, btn6, btn7;
-var instructions = []
+var instructions = [];
+var groupSprites;
 
 var sceneConfig = {
     key: 'main',
@@ -29,7 +30,11 @@ var game = new Phaser.Game(gameConfig);
 
 function preload() {
     this.load.image('button', 'assets/btn.png');
-    this.load.image('buttoncito', 'assets/btncito.png');
+    this.load.image('act1', 'assets/act1.png');
+    this.load.image('act2', 'assets/act2.png');
+    this.load.image('act3', 'assets/act3.png');
+    this.load.image('act4', 'assets/act4.png');
+    this.load.image('act5', 'assets/act5.png');
     this.load.image('buttonred', 'assets/btnred.png');
     this.load.image('buttongreen', 'assets/btngreen.png');
     this.load.image('tiles','assets/tileset.png');
@@ -44,10 +49,10 @@ function create() {
     background = map.createLayer('background', tiles, 0, 0);
     wall = map.createLayer('wall', tiles, 0 ,0);
     platforms = map.createLayer('platforms', tiles, 0, 0);
-    
     player = this.physics.add.sprite(400, 300, 'player');
     player.setScale(2,2);
-    
+
+    groupSprites = this.add.group({setScale: { x: 0.5, y: 0.5}});
     player.setCollideWorldBounds(true);
 
     background.setCollisionByProperty({collides: true});
@@ -118,7 +123,9 @@ function create() {
 
 function update() {
     this.physics.world.collide(player, platforms);
-
+    groupSprites.children.iterate((child) => {
+        child.setScale(0.5, 0.5);
+      });
     const { left, right, up } = cursors;
     
     if (left.isDown){
@@ -138,40 +145,50 @@ function update() {
     }
 }
 function moveLeft() {
-    if (instructions.length < 10) {
+    if (instructions.length < 8) {
+        let x = 100 + instructions.length * 100;
         instructions.push(1);
+        groupSprites.create(x, 780, 'act1');
         console.log(instructions);
     }else{
         console.log("length full!")
     }
 }
 function moveRight() {
-    if (instructions.length < 10) {
+    if (instructions.length < 8) {
+        let x = 100 + instructions.length * 100;
         instructions.push(2);
+        groupSprites.create(x, 780, 'act2');
         console.log(instructions);
     }else{
         console.log("length full!")
     }
 }
 function jumpUp() {
-    if (instructions.length < 10) {
+    if (instructions.length < 8) {
+        let x = 100 + instructions.length * 100;
         instructions.push(3);
+        groupSprites.create(x, 780, 'act3');
         console.log(instructions);
     }else{
         console.log("length full!")
     }
 }
 function jumpLeft() {
-    if (instructions.length < 10) {
+    if (instructions.length < 8) {
+        let x = 100 + instructions.length * 100;
         instructions.push(4);
+        groupSprites.create(x, 780, 'act4');
         console.log(instructions);
     }else{
         console.log("length full!")
     }
 }
 function jumpRight() {
-    if (instructions.length < 10) {
+    if (instructions.length < 8) {
+        let x = 100 + instructions.length * 100;
         instructions.push(5);
+        groupSprites.create(x, 780, 'act5');
         console.log(instructions);
     }else{
         console.log("length full!")
@@ -183,4 +200,6 @@ function runInstructions(){
 function deleteInstructions() {
     console.log("instructions deleted")
     instructions= [];
+    groupSprites.clear(true)
 }
+
