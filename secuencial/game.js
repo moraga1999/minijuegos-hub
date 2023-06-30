@@ -1,8 +1,11 @@
 //python3 -m http.server
-var map, tiles, background, wall, platforms, player, cursors, btn1;
+var map, tiles, background, wall, platforms, player;
 var btn1, btn2, btn3, btn4, btn5, btn6, btn7;
 var instructions = [];
 var groupSprites;
+var runFlag = false;
+var timedEvent;
+var actions = [false, false , false];
 
 var sceneConfig = {
     key: 'main',
@@ -16,6 +19,7 @@ var gameConfig = {
     width: 24*48,
     height: 18*48,
     pixelArt: true,
+    autoCenter: true,
     physics: {
         default: 'arcade',
         arcade: {
@@ -65,8 +69,6 @@ function create() {
           tile.setCollision(false, false, true, false);
         }
      });
-    cursors = this.input.keyboard.createCursorKeys();
-
     //BOTONES
     btn1 = this.add.sprite(1030, 150, 'button');
     btn1.setScale(0.5,0.5);
@@ -125,25 +127,23 @@ function update() {
     this.physics.world.collide(player, platforms);
     groupSprites.children.iterate((child) => {
         child.setScale(0.5, 0.5);
-      });
-    const { left, right, up } = cursors;
-    
-    if (left.isDown){
-        player.setFlipX(true)
+      });    
+    if (actions[0]){
+        player.setFlipX(true);
         player.setVelocityX(-150);
     }
-    else if (right.isDown){
-        player.setFlipX(false)
+    else if (actions[1]){
+        player.setFlipX(false);
         player.setVelocityX(150); 
     }
     else{
         player.setVelocityX(0);
     }
-
-    if (up.isDown && player.body.onFloor()){
+    if (actions[2] && player.body.onFloor()){
         player.setVelocityY(-330);
     }
 }
+
 function moveLeft() {
     if (instructions.length < 8) {
         let x = 100 + instructions.length * 100;
@@ -195,11 +195,62 @@ function jumpRight() {
     }
 }
 function runInstructions(){
-    console.log("running..")
+    console.log("running..");
+    executeInstruction(0);
 }
 function deleteInstructions() {
     console.log("instructions deleted")
     instructions= [];
     groupSprites.clear(true)
+}
+function executeInstruction(index) {
+    if (index > 0) {
+        //debemos borrar elemento de group anterior, ya que su bloque termino
+        let child = groupSprites.getFirstAlive();
+        groupSprites.remove(child, true, true);
+        child.destroy();
+    }
+    //inicializar actions, ya que finalizaron actions anteriores
+    actions = [false, false , false];
+    //fijar actions
+    if(index < instructions.length){
+        switch (instructions[index]) {
+            //activar actions según el caso
+            case 1:
+                //mover izquierda
+                actions[0]= true;
+                break;
+            case 2:
+                //mover derecha
+                actions[1]= true;
+                break;
+            case 3:
+                //saltar arriba
+                actions[2]= true;
+                break;
+            case 4:
+                //saltar izquierda
+                actions[0]= true;
+                actions[2]= true;
+                break;
+            case 5:
+                //saltar derecha
+                actions[1]= true;
+                actions[2]= true;
+                break;
+            default:
+                break;
+        }
+    }
+    if (index + 1 <= instructions.length) {
+        // Después de un segundo, ejecutar el siguiente bloque
+        const context = this; // Guardar el contexto actual en una variable
+        setTimeout(function() {
+            executeInstruction.call(context, index + 1);
+        }, 1000);
+    } else {
+        // Fin de la ejecución
+        instructions = [];
+    }
 }
 
