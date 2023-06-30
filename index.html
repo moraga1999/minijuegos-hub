@@ -1,46 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de minijuegos ICC</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script></head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
 <body>
-    <div class="card-deck" id="accordion">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Robot Secuencia</h5>
-                <p class="text-muted">Programación Secuencial</p>
-                <p class="card-text">Un robot tiene que superar un circuito para 
-                    salvar a un gato que se encuentra en peligro. Para ello, el jugador arma una 
-                    lista de tareas con las opciones de instrucciones que tenga y el robot las ejecuta a tiempo real</p>
+    <header>
+        <div class="navbar bg-dark shadow-sm" style="justify-content: center">
+            <strong class="navbar-brand" style="color: white;">Portal de minijuegos ICC</strong>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="card-deck">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Oveja Secuencia</h5>
+                        <button class="btn btn-link text-muted" data-toggle="modal" data-target="#secuencialModal">Programación Secuencial</button>
+                        <p class="card-text">Una oveja tiene que superar un circuito para 
+                            salvar a un gato que se encuentra en peligro. Para ello, el jugador arma una 
+                            lista de tareas con las opciones de instrucciones que tenga y la oveja las ejecuta a tiempo real.</p>
+                    </div>
+                    <div class="card-footer">                
+                        <button onclick="location.href='/secuencial/secuencial.html'" type="button" class="btn btn-block btn-outline-success">Jugar</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Encontrando Usuario</h5>
+                        <button class="btn btn-link text-muted" data-toggle="modal" data-target="#cifradoModal">Cifrado Cesár</button>
+                        <p class="card-text">El jugador tiene que acceder a una cuenta, descifrando su contraseña a través de un computador. 
+                            Moviendo las flechas arriba y abajo del teclado, los carácteres van a ir cambiando siguiendo las reglas del cifrado césar, 
+                            hasta encontrar una posible contraseña dentro de la matriz de carácteres. 
+                            Al hacerlo, debe escribirla en el dispositivo de la derecha, y acceder a la cuenta.</p>
+                    </div>
+                    <div class="card-footer">                
+                        <button onclick="location.href='/cifrado/cifrado.html'" type="button" class="btn btn-block btn-outline-success">Jugar</button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </main>
+    <!-- Programación secuencial -->
+    <div class="modal fade" id="secuencialModal" tabindex="-1" role="dialog" aria-labelledby="secuencialModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="secuencialModalLabel">Programación secuencial</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             </div>
-            <div class="card-footer">                
-                <button onclick="location.href='/secuencial/secuencial.html'" type="button" class="btn btn-block btn-outline-success">Jugar</button>
+            <div class="modal-body">
+                La programación secuencial es como seguir una receta de cocina paso a paso. Imagina que estás siguiendo una receta para hacer un pastel. Comienzas con una lista de ingredientes y luego sigues cada instrucción en el orden en que aparecen. Primero, mezclas los ingredientes secos, luego agregas los líquidos, los bates todos juntos, los viertes en un molde y los horneas. Cada paso se realiza en orden, uno tras otro.
+                De manera similar, en la programación secuencial, trabajas con un lenguaje de programación para escribir instrucciones que una computadora puede entender y seguir. Estas instrucciones se ejecutan secuencialmente, una después de la otra, en el mismo orden en que las escribiste. Es como darle una serie de comandos a la computadora para que realice una tarea específica.
+                La programación secuencial puede ser emocionante porque te permite crear cosas sorprendentes con solo un poco de código. Puedes desarrollar aplicaciones móviles, diseñar juegos, construir sitios web interactivos e incluso crear robots que realicen tareas increíbles. Cada instrucción que escribes tiene un propósito y se ejecuta en un orden específico para lograr un objetivo.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Encontrando Usuario</h5>
-                <div class="card-text">
-                    <button id="headingOne" class="btn btn-sm btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Descripcion del juego
-                    </button>
-                </div>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                    <p>El jugador tiene que acceder a una cuenta, descifrando su contraseña a través de un computador. 
-                        Moviendo las flechas arriba y abajo del teclado, los carácteres van a ir cambiando siguiendo las reglas del cifrado césar, 
-                        hasta encontrar una posible contraseña dentro de la matriz de carácteres. 
-                        Al hacerlo, debe escribirla en el dispositivo de la derecha, y acceder a la cuenta.</p>
-                </div>
-                <button onclick="location.href='/cifrado/cifrado.html'" type="button" class="btn btn-block btn-outline-success">Jugar</button>
+        </div>
+    </div>
+    
+    <!-- Cifrado Cesar -->
+    <div class="modal fade" id="cifradoModal" tabindex="-1" role="dialog" aria-labelledby="cifradoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="cifradoModalLabel">Cifrado Cesar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             </div>
-            <div class="card-footer"><p>Cifrado Cesar</p></div>
+            <div class="modal-body">
+                El cifrado César es un método de cifrado muy simple que se utiliza para ocultar el contenido de un mensaje. Recibe su nombre del antiguo líder militar romano, Julio César, quien supuestamente lo utilizaba para comunicarse de manera segura con sus generales.
+El cifrado César funciona desplazando cada letra del mensaje original un cierto número de posiciones hacia la derecha en el alfabeto. Por ejemplo, si se usa un desplazamiento de 3, la letra "A" se convierte en "D", la "B" se convierte en "E", y así sucesivamente. Al llegar al final del alfabeto, las letras se vuelven a colocar al principio.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
         </div>
     </div>
 </body>
+<footer class="bg-primary text-center text-white fixed-bottom">
+    <!-- Copyright -->
+    <div class="text-center p-3 bg-dark shadow-sm" style="background-color: #0b0b0b">
+        © 2023 Copyright:
+        <a class="text-white" href="https://github.com/moraga1999/minijuegos-hub">minijuegos-hub</a>
+    </div>
+    <!-- Copyright -->
+</footer>
 </html>
+
+<style>
+main {
+    border-radius: 1em;
+    padding: 1em;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) 
+}
+</style>
