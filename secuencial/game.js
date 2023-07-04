@@ -4,7 +4,6 @@ var btn1, btn2, btn3, btn4, btn5, btn6, btn7;
 var instructions = [];
 var groupSprites;
 var runFlag = false;
-var timedEvent;
 var actions = [false, false , false];
 
 var sceneConfig = {
