@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="./assets/Logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de minijuegos ICC</title>
     <meta charset="utf-8">
@@ -20,7 +21,8 @@
     <main>
         <div class="container">
             <div class="card-deck">
-                <div class="card">
+                <div class="card border-success mb-3">
+                    <img class="card-img-top" src="./assets/secuencial2.png" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Oveja Secuencia</h5>
                         <button class="btn btn-link text-muted" data-toggle="modal" data-target="#secuencialModal">Programación Secuencial</button>
@@ -32,7 +34,8 @@
                         <button onclick="location.href='/secuencial/secuencial.html'" type="button" class="btn btn-block btn-outline-success">Jugar</button>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card border-success mb-3">
+                    <img class="card-img-top" src="./assets/cesar3.png" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Encontrando Usuario</h5>
                         <button class="btn btn-link text-muted" data-toggle="modal" data-target="#cifradoModal">Cifrado Cesár</button>
@@ -121,7 +124,10 @@ main {
     top: 40%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%) 
+    transform: translate(-50%, -50%);
+}
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .navbar{
     background-color: #049c8c;
