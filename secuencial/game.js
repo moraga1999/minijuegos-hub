@@ -5,7 +5,8 @@ var instructions = [];
 var groupSprites;
 var runFlag = false;
 var actions = [false, false , false];
-
+var win = false;
+var text1, text2;
 var sceneConfig = {
     key: 'main',
     preload: preload,
@@ -40,6 +41,7 @@ function preload() {
     this.load.image('act5', 'assets/act5.png');
     this.load.image('buttonred', 'assets/btnred.png');
     this.load.image('buttongreen', 'assets/btngreen.png');
+    this.load.image('buttoncito', 'assets/btncito.png');
     this.load.image('tiles','assets/tileset.png');
     this.load.tilemapTiledJSON('map','map.json');
     this.load.image('player', 'assets/pj.png');
@@ -120,6 +122,19 @@ function create() {
     this.add.text(970, 785, 'ELIMINAR', { fontFamily: 'Arial', fontSize: '24px', fill: '#000000' });
     btn7.setInteractive();
     btn7.on('pointerdown', deleteInstructions, this);
+
+    endWindow = this.add.sprite(450, 450, 'buttoncito');
+    endWindow.setScale(1.5,1.5);
+    text1 = this.add.text(375, 390, 'GANASTE!', { fontFamily: 'Arial', fontSize: '30px', fill: '#000000' });
+    endbtn = this.add.sprite(450, 480, 'buttongreen');
+    endbtn.setScale(0.4,0.4);
+    text2 = this.add.text(390, 468, 'REINICIAR', { fontFamily: 'Arial', fontSize: '24px', fill: '#000000' });
+    endbtn.setInteractive();
+    endbtn.on('pointerdown', restartGame, this);
+    endWindow.setVisible(false);
+    text1.setVisible(false);
+    endbtn.setVisible(false);
+    text2.setVisible(false);
 }
 
 function update() {
@@ -140,6 +155,18 @@ function update() {
     }
     if (actions[2] && player.body.onFloor()){
         player.setVelocityY(-330);
+    }
+    if(player.x < 48*10 && player.x > 48*9){
+        if (player.y < 48*3 && player.y > 48) {
+            win= true;
+        }
+    }
+    if (win) {
+        //ventana fin juego
+        endWindow.setVisible(true);
+        text1.setVisible(true);
+        endbtn.setVisible(true);
+        text2.setVisible(true);
     }
 }
 
@@ -200,7 +227,8 @@ function runInstructions(){
 function deleteInstructions() {
     console.log("instructions deleted")
     instructions= [];
-    groupSprites.clear(true)
+    groupSprites.clear(true);
+    actions= [false, false, false];
 }
 function executeInstruction(index) {
     if (index > 0) {
@@ -251,5 +279,10 @@ function executeInstruction(index) {
         // Fin de la ejecución
         instructions = [];
     }
+}
+function restartGame() {
+    win = false;
+    deleteInstructions();
+    this.scene.restart();
 }
 
