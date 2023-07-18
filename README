@@ -5,19 +5,19 @@
 Sigue estos pasos para clonar el repositorio y ejecutar la aplicación en tu dispositivo:
 
 1. Abre una terminal en tu computadora.
-2. Clona el repositorio utilizando el siguiente enlace: [https://github.com/moraga1999/minijuegos-hub](https://github.com/moraga1999/minijuegos-hub)
+2. Clona el repositorio utilizando el siguiente enlace: [https://github.com/moraga1999/minijuegos-hub]
 
-```bash
+bash:
 git clone https://github.com/moraga1999/minijuegos-hub.git
-```
 
-3. Asegúrate de tener Python instalado en tu dispositivo. Si no lo tienes, puedes descargarlo desde [https://www.python.org/downloads/](https://www.python.org/downloads/).
+
+3. Asegúrate de tener Python instalado en tu dispositivo. Si no lo tienes, puedes descargarlo desde [https://www.python.org/downloads/]
 
 4. Navega hacia el directorio raíz del proyecto con el siguiente comando:
 
-```bash
+bash:
 cd minijuegos-hub
-```
+
 
 ## Ejecutando el servidor
 
@@ -25,14 +25,12 @@ Una vez que hayas clonado el repositorio y te encuentres en el directorio raíz 
 
 1. Ejecuta el siguiente comando en la terminal:
 
-```bash
+bash:
 python -m http.server
-```
+
 
 2. Una vez que el servidor esté en funcionamiento, abre tu navegador web favorito y accede a la siguiente dirección:
 
-```text
 http://localhost:8000
-```
 
 ¡Listo! Ahora podrás explorar nuestra aplicación.
